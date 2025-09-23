@@ -1,5 +1,5 @@
 {
-	"name": "concious-tracker",
+	"name": "conscious-tracker",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -11,21 +11,32 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check ."
+		"lint": "prettier --check .",
+		"dbserve": "./db/pocketbase serve"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.0",
 		"@sveltejs/kit": "^2.22.0",
 		"@sveltejs/vite-plugin-svelte": "^6.0.0",
+		"@tailwindcss/vite": "^4.0.0",
+		"@types/node": "^24.5.2",
+		"daisyui": "^5.1.14",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
+		"tailwindcss": "^4.0.0",
 		"typescript": "^5.0.0",
 		"vite": "^7.0.4"
 	},
-	"dependencies": {
-		"@picocss/pico": "^2.1.1"
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild"
+		]
 	},
-	"packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a"
+	"dependencies": {
+		"@lucide/svelte": "^0.544.0",
+		"date-fns": "^4.1.0",
+		"pocketbase": "^0.26.2"
+	}
 }
