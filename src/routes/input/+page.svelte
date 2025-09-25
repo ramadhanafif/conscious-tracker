@@ -4,7 +4,12 @@
 
 	const TIME_STATUS_DELAY_MS = 3000;
 
-	let submitData: { title: string; description: string } = { title: '', description: '' };
+	let submitData: { title: string; description: string; status: string } = {
+		title: '',
+		description: '',
+		status: 'ongoing'
+	};
+
 	let submitStatus: 'wait' | 'done' | 'fail' | 'idle' = 'idle';
 
 	async function onsubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
@@ -14,7 +19,7 @@
 
 		submitStatus = 'wait';
 		await pb
-			.collection('activity')
+			.collection('activities')
 			.create(submitData)
 			.then((activityRecord) => {
 				const data = {
@@ -46,13 +51,18 @@
 </script>
 
 <div class="flex items-center justify-center">
-	<form {onsubmit} class="w-full">
+	<form {onsubmit} class="lg: min-w-xl">
 		<fieldset class="fieldset">
-			<legend class="fieldset-legend">Activity</legend>
+			<div>
+				<legend class="fieldset-legend text-xl">Activity</legend><span class="text-error text-sm"
+					>*</span
+				>
+				<sm class="text-base-content/50">Title of your activity</sm>
+			</div>
 			<input
 				bind:value={submitData.title}
 				type="text"
-				class="input"
+				class="input w-full"
 				name="activity"
 				placeholder="Type activity here"
 				required
@@ -60,17 +70,16 @@
 		</fieldset>
 
 		<fieldset class="fieldset">
-			<legend class="fieldset-legend">Description</legend>
+			<legend class="fieldset-legend text-xl">Description</legend>
 			<textarea
 				bind:value={submitData.description}
-				class="input"
+				class="input w-full"
 				name="description"
-				rows="2"
 				placeholder="Type description here"
 			></textarea>
 		</fieldset>
 
-		<div class="mt-4 flex items-center flex-row-reverse w-full gap-4 px-8">
+		<div class="mt-4 flex w-full flex-row-reverse items-center gap-4 px-8">
 			<button class="btn btn-primary" type="submit" disabled={submitStatus !== 'idle'}>Start</button
 			>
 			<button class="btn btn-secondary" type="reset" disabled={submitStatus !== 'idle'}
