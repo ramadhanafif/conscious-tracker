@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { pb, pbTimeFormat } from '$lib';
 	import { Check, LoaderCircle, X } from '@lucide/svelte';
-
-	const TIME_STATUS_DELAY_MS = 3000;
 
 	let submitData: { title: string; description: string; status: string } = {
 		title: '',
@@ -18,35 +15,6 @@
 		console.debug({ submitData, submitStatus });
 
 		submitStatus = 'wait';
-		await pb
-			.collection('activities')
-			.create(submitData)
-			.then((activityRecord) => {
-				const data = {
-					activity_id: activityRecord.id,
-					time_data: pbTimeFormat(new Date()),
-					type: 'start'
-				};
-
-				console.debug(data);
-
-				return pb.collection('timer_events').create(data);
-			})
-			.then(() => {
-				submitStatus = 'done';
-				setTimeout(() => {
-					submitStatus = 'idle';
-				}, TIME_STATUS_DELAY_MS);
-			})
-			.catch((err) => {
-				submitStatus = 'fail';
-
-				setTimeout(() => {
-					submitStatus = 'idle';
-				}, TIME_STATUS_DELAY_MS);
-				console.debug(err);
-			});
-		console.debug(submitStatus);
 	}
 </script>
 
