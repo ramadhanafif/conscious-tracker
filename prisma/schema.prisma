@@ -1,0 +1,43 @@
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma-app/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../db/dev.db"
+}
+
+model ActivityCategories {
+  id         String       @id @default(uuid())
+  name       String       @unique
+  Activities Activities[]
+}
+
+model Activities {
+  id         String             @id @default(uuid())
+  title      String
+  desc       String?
+  category   ActivityCategories @relation(fields: [categoryId], references: [id])
+  categoryId String
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  EventLogs  EventLogs[]
+}
+
+enum TimeEvents {
+  start
+  stop
+  break
+  unbreak
+}
+
+model EventLogs {
+  id         String     @id @default(uuid())
+  activity   Activities @relation(fields: [activityId], references: [id])
+  activityId String
+  event      TimeEvents
+  timestamp  DateTime   @default(now())
+}

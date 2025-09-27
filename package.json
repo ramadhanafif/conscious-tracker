@@ -24,6 +24,7 @@
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.14",
+		"prisma": "^6.16.2",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^4.0.0",
@@ -32,12 +33,14 @@
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
-			"esbuild"
+			"@prisma/engines",
+			"@tailwindcss/oxide",
+			"esbuild",
+			"prisma"
 		]
 	},
 	"dependencies": {
 		"@lucide/svelte": "^0.544.0",
-		"date-fns": "^4.1.0",
-		"pocketbase": "^0.26.2"
+		"@prisma/client": "6.16.2"
 	}
 }
